@@ -20,3 +20,12 @@ ardupilot - libraries - AP_Scripting - modules - MAVLink - mavlinl_msg_HEARTBEAT
 ardupilot - modules - mavlink - message_definitions - v1.0 - minimal.xml - 699
 ardupilot - libraries - GCS_MAVLink - GCS_Common.cpp - 3094
 ardupilot - libraries - SITL - SIM_Loweheiser.cpp - 60
+
+----------------------------------------------------------------------------------------
+Mission Planner
+
+----- add heartbeat -----
+Mavlink.cs - 30254 add gcs_type
+MAVLinkInterface.cs - 807 - add
+		mavlink_heartbeat_t hb_GCS_check = buffer.ToStructure<mavlink_heartbeat_t>();
+		if (hb_GCS_check.gcs_type != (byte)GCS_TYPE.AUV_GCS)
