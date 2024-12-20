@@ -1,6 +1,15 @@
 https://github.com/ArduPilot/ardupilot/blob/master/BUILD.md
 https://ardupilot.org/dev/docs/building-the-code.html
 
+git clone https://github.com/40727106/ardupilot.git
+
+cd ardupilot
+
+git submodule update --init --recursive
+
+Tools/environment_install/install-prereqs-ubuntu.sh -y
+
+. ~/.profile
 
 cd ardupilot/
 
@@ -16,10 +25,22 @@ code .
 Ardupilot
 
 ----- add heartbeat -----
-ardupilot - libraries - AP_Scripting - modules - MAVLink - mavlinl_msg_HEARTBEAT.lua - 10
 ardupilot - modules - mavlink - message_definitions - v1.0 - minimal.xml - 699
 ardupilot - libraries - GCS_MAVLink - GCS_Common.cpp - 3094
-ardupilot - libraries - SITL - SIM_Loweheiser.cpp - 60
+
+heartbeat_send  send_heartbeat
+
+----- set MAVLINK_STX  mavlink1 0xFE mavlink2 0xFD
+
+   MAVLINK_STX = 252; 0xFC  
+
+   MAVLINK_STX_MAVLINK1 = 0xFD; 253
+
+/home/bernie/ardupilot/modules/mavlink/pymavlink/generator/mavgen_java.py 361
+/home/bernie/ardupilot/modules/mavlink/pymavlink/generator/mavgen_cs.py 124
+/home/bernie/ardupilot/modules/mavlink/pymavlink/generator/mavgen_cpp11.py 68
+/home/bernie/ardupilot/modules/mavlink/pymavlink/generator/mavgen_c.py 54
+
 
 ----------------------------------------------------------------------------------------
 Mission Planner
@@ -28,4 +49,4 @@ Mission Planner
 Mavlink.cs - 30254 add gcs_type
 MAVLinkInterface.cs - 807 - add
 		mavlink_heartbeat_t hb_GCS_check = buffer.ToStructure<mavlink_heartbeat_t>();
-		if (hb_GCS_check.gcs_type != (byte)GCS_TYPE.AUV_GCS)
+		if (hb_GCS_check.gcs_type != (byte)MAV_GCS.AUV_GCS)
